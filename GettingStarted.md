@@ -33,7 +33,7 @@ There are 3 main branches in repository :
             
 ## Before Commiting your changes
   - Ros Development Studio:
-        - Save instance before you exist
+      - Save instance before you exist
         
 ## Pushing Changes on Remote Branch
 Here are some instructions to make code more organised:
