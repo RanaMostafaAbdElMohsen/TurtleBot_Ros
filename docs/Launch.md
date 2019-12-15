@@ -8,38 +8,25 @@ Please refer to `GettingStarted.md` for details
 Displaying our simulated world with all objects and ROS turtlebot on `Gazebo`
 - Launch `Ros Development Studio` 
 - Open your created project + follow steps ``GettingStarted.md``
-- Navigation Bar, click Simulation -> click Launch -> choose `turtlebot_world.launch`
+- Inside motion_plan, two folders:
+        - launch : simulation and motion_planning launches
+        - worlds : world files created so far
+- Navigation Bar, click Simulation -> click Launch -> choose `tb_main.launch`
+
+### Starting SLAM algorithm
+- Open a shell terminal:
+    - type `roslaunch motion_plan gmapping.launch  
 
 ### Starting Rviz 
-Display `SLAM algorithm` with turtlebot on Rviz
-  - Prequisities:
-      - Wait till `Gazebo simulation` is launched completely 
-  1- Open a shell using navigation bar 
-  2- Type command : ``roslaunch motion_plan gmapping.launch``
-  3- Wait for 30 secs -> (running)
-  4- Open Graphical Tool using navigation bar 
-      - Resize Window
-      - Add Robot State using `Add Button -> Robot State`
-            - observe robot spawned in Rviz
-      - Click `Add Button -> Laser Sensor`
-            - Click on Laser Sensor 
-            - Find topic for Laser Sensor in Menu
-            - Type in `/laser/scan`
-      - Click `Add Button -> Map`
-            - Click on Map
-            - Find topic for Map in Menu
-            - Type in `/map`
-            - There should be no warning appear
-                  - you should see grey shadow for Map visible on Rviz
-            - If Warning appear that map is not found
-                  - means you have launched `roslaunch motion_plan gmapping.launch before Gazebo Simulation is launched completely`
-                  - Corrective Action
-                      - Close everything including Gazebo Simulation + restart process
+- Open a shell terminal:
+    - type `roslaunch motion_plan view_localization.launch`
                       
-### Running ObstacleAvoidance Algorithm
-After Starting Rviz
+### Running Move_Base Algorithm
+This allows robot to localize itself and go to a certain goal `Refer for Video 1 in tutorial for more details`
 - Open a new shell from navigation bar 
-- Type in command `roslaunch motion_plan obstacleAvoidance.launch`
-- Await and you will find turtle_bot moving in simulation
-- Observe while it is building a map in Graphical Tool
+- Kill all open terminals except `gazebo simulation`
+- Type in command `roslaunch motion_plan move_base.launch`
+- Open a new shell and start `Rviz` as instructed above
+- Open Graphical Tool
+- Watch Tutorial part to give robot `2d pose estimate` and `2d nav goal`
                       
