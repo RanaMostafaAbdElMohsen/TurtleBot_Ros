@@ -7,4 +7,4 @@ This is a project intended for robotics course at Cairo University for `turtle r
 - Omar Shaalan
 
 ## Step-by-Step Tutorial
-You will find tutorial inside docs folder in master branch
+You will find tutorial inside `docs` folder in master branch
