@@ -15,18 +15,37 @@ Displaying our simulated world with all objects and ROS turtlebot on `Gazebo`
 
 ### Starting SLAM algorithm
 - Open a shell terminal:
-    - type `roslaunch motion_plan gmapping.launch  
+    - type `roslaunch source_code gmapping.launch  
 
 ### Starting Rviz 
 - Open a shell terminal:
-    - type `roslaunch motion_plan view_localization.launch`
+    - type `roslaunch source_code view_localization.launch`
                       
 ### Running Move_Base Algorithm
 This allows robot to localize itself and go to a certain goal `Refer for Video 1 in tutorial for more details`
 - Open a new shell from navigation bar 
 - Kill all open terminals except `gazebo simulation`
-- Type in command `roslaunch motion_plan move_base.launch`
+- Type in command `roslaunch source_code move_base.launch`
 - Open a new shell and start `Rviz` as instructed above
 - Open Graphical Tool
 - Watch Tutorial part to give robot `2d pose estimate` and `2d nav goal`
-                      
+
+### Map Generation
+Instructions for generating map
+- Starting SLAM algorithm as instructed above
+- Open a shell terminal
+- Type `rosrun rviz rviz`
+- Open graphical Tools
+- Resize 
+- Click `Add -> By Topic -> map`
+- Click `Add -> Robot State`
+- Click `Add -> Laser Scan -> Adjust size (laser size) to be 0.03m + Topic -> /kabouki/laser/scan`
+- Open another shell terminal
+- Type `roslaunch turtlebot_teleop keyboard_teleop.launch`
+- Move turtlebot around till loop closure more than once
+- Observe map on rviz
+- `Kill turtlebot_teleop terminal` once finding map satisfactory 
+- Open a shell terminal
+- Navigate to map folder : `cd simulation_ws/src/source_code/map`
+- Save map by typing in terminal `rosrun map_server map_saver -f my_map`
+       
