@@ -43,6 +43,7 @@ Here are some instructions to make code more organised:
       - Make a `Pull request` and request review from other two in teams 
       - If it runs successfully on our instances
       - Authorized to be push to `master` branch
+
             
 ## Useful Tutorial Links
 Found a turtorial on turtle_ros where I can perform localization and create a map etc...
@@ -51,3 +52,4 @@ Tutorial link : [Click Here](https://www.youtube.com/playlist?list=PLK0b4e05LnzZ
 ## Progress so far 
 - Done Video 1 from Playlist
 - In progress Video 2 `(16 min)`
+
