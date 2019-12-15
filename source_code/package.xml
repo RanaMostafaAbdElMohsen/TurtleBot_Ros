@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>motion_plan</name>
+  <name>source_code</name>
   <version>0.0.0</version>
   <description>The motion_plan with worlds simulation package</description>
 
