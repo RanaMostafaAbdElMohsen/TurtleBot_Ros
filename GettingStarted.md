@@ -1,14 +1,8 @@
 ## Getting Started
 
 ## Repository Branches
-There are 3 main branches in repository :
-  - Master
-    - Contains all readme files + tutorials for repository
-    - Contains all necessary documentation
-  - Simulation
-    - Contain all details about world gazebo file with its launch file
-  - motion_planning
-    - Contain all algorithms necessary for motion_planning
+I have kept branches `History_Motion_Planning_Buggy` and `History_Simulation_Buggy` as a reference in case of trying them out
+Correct up and running branch is `master branch`
 
 ## Working Environment
 - Option 1 : Working with `Ubuntu 16 + Kinetic` with all ros packages installed
