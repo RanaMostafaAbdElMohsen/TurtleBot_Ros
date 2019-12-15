@@ -20,13 +20,13 @@ There are 3 main branches in repository :
       - Create an account on Ros development studio
       - Create a ROS project ( public / private)
       - For cloning `master` branch from repo
-            - Open ``shell terminal`` from navigation bar
-            - ``cd catkin_ws/src`` 
-            - git clone `https://github.com/RanaMostafaAbdElMohsen/TurtleBot_Ros.git`
-            - Enter your credentials
-            - git checkout `master`
-            - From Shell terminal : `cd ..`
-            - Type in terminal: `catkin_make`
+      - Open ``shell terminal`` from navigation bar
+      - ``cd catkin_ws/src`` 
+      - git clone `https://github.com/RanaMostafaAbdElMohsen/TurtleBot_Ros.git`
+      - Enter your credentials
+      - git checkout `master`
+      - From Shell terminal : `cd ..`
+      - Type in terminal: `catkin_make`
 
             
 ## Before Commiting your changes
@@ -41,12 +41,13 @@ Here are some instructions to make code more organised:
       - `commit your changes`
       - push your code
       - Make a `Pull request` and request review from other two in teams 
-      - If it runs successfully on our instances:
-            - Authorized to be push to `master` branch
+      - If it runs successfully on our instances
+      - Authorized to be push to `master` branch
             
 ## Useful Tutorial Links
 Found a turtorial on turtle_ros where I can perform localization and create a map etc...
 Tutorial link : [Click Here](https://www.youtube.com/playlist?list=PLK0b4e05LnzZA_fWYi1_VEuBzNw9BGo6s&fbclid=IwAR39AzthImdkdXIoZ23oz6d5_kM8vbEb2z-jmNkq4VQ6qI12-wcaGFyi5t4)
 
 ## Progress so far 
-Video 1 from Playlist
+- Done Video 1 from Playlist
+- In progress Video 2 `(16 min)`
