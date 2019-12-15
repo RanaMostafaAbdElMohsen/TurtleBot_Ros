@@ -29,4 +29,23 @@ This allows robot to localize itself and go to a certain goal `Refer for Video 1
 - Open a new shell and start `Rviz` as instructed above
 - Open Graphical Tool
 - Watch Tutorial part to give robot `2d pose estimate` and `2d nav goal`
-                      
+
+### Map Generation
+Instructions for generating map
+- Starting SLAM algorithm as instructed above
+- Open a shell terminal
+- Type `rosrun rviz rviz`
+- Open graphical Tools
+- Resize 
+- Click `Add -> By Topic -> map`
+- Click `Add -> Robot State`
+- Click `Add -> Laser Scan -> Adjust size (laser size) to be 0.03m + Topic -> /kabouki/laser/scan`
+- Open another shell terminal
+- Type `roslaunch turtlebot_teleop keyboard_teleop.launch`
+- Move turtlebot around till loop closure more than once
+- Observe map on rviz
+- `Kill turtlebot_teleop terminal` once finding map satisfactory 
+- Open a shell terminal
+- Navigate to map folder : `cd simulation_ws/src/motion_plan/map`
+- Save map by typing in terminal `rosrun map_server map_saver -f my_map`
+       
