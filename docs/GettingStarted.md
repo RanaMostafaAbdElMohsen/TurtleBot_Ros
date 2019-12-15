@@ -21,7 +21,7 @@ There are 3 main branches in repository :
       - Create a ROS project ( public / private)
       - For cloning `master` branch from repo
       - Open ``shell terminal`` from navigation bar
-      - ``cd catkin_ws/src`` 
+      - ``cd simulation_ws/src`` 
       - git clone `https://github.com/RanaMostafaAbdElMohsen/TurtleBot_Ros.git`
       - Enter your credentials
       - git checkout `master`
@@ -51,5 +51,5 @@ Tutorial link : [Click Here](https://www.youtube.com/playlist?list=PLK0b4e05LnzZ
 
 ## Progress so far 
 - Done Video 1 from Playlist
-- In progress Video 2 `(16 min)`
+- Done Video 2 from Playlist
 
