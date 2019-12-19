@@ -48,4 +48,12 @@ Instructions for generating map
 - Open a shell terminal
 - Navigate to map folder : `cd simulation_ws/src/source_code/map`
 - Save map by typing in terminal `rosrun map_server map_saver -f my_map`
+
+##Running Move_Base with gmapping
+- Open a new shell from navigation bar 
+- Kill all open terminals except `gazebo simulation`
+- Type in command `roslaunch source_code explore_demo.launch`
+- Open a new shell and start `Rviz` as instructed above
+- Open Graphical Tool
+- Give robot  `2d nav goal`
        
