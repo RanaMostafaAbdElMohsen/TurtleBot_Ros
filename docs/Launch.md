@@ -51,8 +51,8 @@ Instructions for generating map
 
 ### Running autonmous mappping
 #### First time
-- Type in the shell 'sudo apt-get upgrade'
-- Type 'sudo apt install ros-${ROS_DISTRO}-explore-lite'
+- Type in the shell `sudo apt-get upgrade`
+- Type `sudo apt install ros-${ROS_DISTRO}-explore-lite`
 #### Run commands
 - Open a new shell from navigation bar 
 - Kill all open terminals except `gazebo simulation`
