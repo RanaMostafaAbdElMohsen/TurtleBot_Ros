@@ -9,9 +9,7 @@ There are 3 main branches in repository :
   - History_Simulation_Buggy `( Deprecated )`
     - Contains earlier version of project but `buggy`
   - HIstory_Motion_Planning_Buggy `( Deprecated )`
-    - Contains earlier version of project but `buggy` with all algorithms necessary for motion_planning
-  -Exploration
-    -Code for exploration(currently only move_base with gmapping is working)
+    - Contains earlier version of project but `buggy` with all algorithms necessary for motion_planning 
 
 ## Working Environment
 - Option 1 : Working with `Ubuntu 16 + Kinetic` with all ros packages installed
