@@ -15,7 +15,7 @@ Displaying our simulated world with all objects and ROS turtlebot on `Gazebo`
 
 ### Starting SLAM algorithm
 - Open a shell terminal:
-    - type `roslaunch source_code gmapping.launch  
+    - type `roslaunch source_code gmapping.launch`  
 
 ### Starting Rviz 
 - Open a shell terminal:
