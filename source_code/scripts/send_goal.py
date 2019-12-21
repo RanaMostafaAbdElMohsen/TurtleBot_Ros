@@ -5,6 +5,7 @@ import sys
 import actionlib
 from tf.transformations import quaternion_from_euler, euler_from_quaternion
 
+
 if __name__ == '__main__':
         rospy.init_node('node', anonymous=True)
         move_base = actionlib.SimpleActionClient("move_base", MoveBaseAction)
@@ -27,4 +28,8 @@ if __name__ == '__main__':
         goal.target_pose.pose.orientation.z = quat[2]
         goal.target_pose.pose.orientation.w = quat[3]
         move_base.send_goal(goal)
+        # Work around
+        sys.stderr.close()
+        sys.stdout.close()
+
 
