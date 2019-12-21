@@ -4,6 +4,12 @@ This documentation is to wrap-up all commands and how to use commands on `RDS`
 ## Fetching Files from Remote Repo
 Please refer to `GettingStarted.md` for details
 
+### Environments Available
+There are two environments supported : `simple` and `complex` environments
+To switch between each environment :
+- Open `tb_main.launch` in `Launch` folder
+- Edit world_file argument to change path from `simple` to `complex` and vice versa
+
 ### Starting Simulation
 Displaying our simulated world with all objects and ROS turtlebot on `Gazebo`
 - Launch `Ros Development Studio` 
