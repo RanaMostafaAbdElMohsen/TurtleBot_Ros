@@ -1,5 +1,5 @@
 <launch>
-  <arg name="world_file"  default="$(find source_code)/worlds/turtlebot_world.world"/>
+  <arg name="world_file"  default="$(find source_code)/worlds/complex_world.world"/>
   <!-- <arg name="world_file"  default="$(find summit_xl_gazebo)/worlds/test_zone.sdf"/> -->
 
   <arg name="base"      value="$(optenv TURTLEBOT_BASE kobuki)"/> <!-- create, roomba -->
