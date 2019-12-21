@@ -4,9 +4,6 @@ This documentation is to wrap-up all commands and how to use commands on `RDS`
 ## Fetching Files from Remote Repo
 Please refer to `GettingStarted.md` for details
 
-## Note
-explore_cancel script is still buggy
-
 ### Starting Simulation
 Displaying our simulated world with all objects and ROS turtlebot on `Gazebo`
 - Launch `Ros Development Studio`
