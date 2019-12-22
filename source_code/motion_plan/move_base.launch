@@ -1,6 +1,6 @@
 <launch>
   <!-- Map server -->
-  <arg name="map_file" default="$(find turtlebot_navigation_gazebo)/maps/my_map.yaml"/>
+  <arg name="map_file" default="$(find source_code)/map/simple_environment/simple_map.yaml"/>
   <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
   <!-- Localization -->
