@@ -28,6 +28,9 @@ import time
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
+import actionlib
+from move_base_msgs.msg import MoveBaseGoal, MoveBaseAction
+from actionlib_msgs.msg import GoalID
 
 class TakePhoto:
     def __init__(self):
@@ -38,7 +41,6 @@ class TakePhoto:
         # Connect image topic
         img_topic = "/camera/rgb/image_raw"
         self.image_sub = rospy.Subscriber(img_topic, Image, self.callback)
-        self.detect_pub= rospy.Publisher('/object',String,queue_size=15)
         # Allow up to one second to connection
         rospy.sleep(1)
 
@@ -55,6 +57,13 @@ class TakePhoto:
         self.image = cv_image
         self.detection()
         self.image_received = False
+    def cancel_exploration(self):
+        goal=GoalID(stamp=rospy.Time.from_sec(0.0), id="")
+        explore_server.publish(goal)
+
+
+    def cancel_move_base(self):
+        move_base.cancel_all_goals()
 
     def take_picture(self, img_title):
         if self.image_received:
@@ -90,16 +99,22 @@ class TakePhoto:
             conts,h=cv2.findContours(maskFinal.copy(),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
 
             cv2.drawContours(img,conts,-1,(255,0,0),3)
-            msg=String('T')
+
             for i in range(len(conts)):
                 x,y,w,h=cv2.boundingRect(conts[i])
                 rospy.loginfo("Cone found")
-                msg=String('F')
-            self.detect_pub.publish(msg)
+                self.cancel_exploration()
+                self.cancel_move_base()
+                #rospy.signal_shutdown("done")
+
 
 if __name__ == '__main__':
 
     # Initialize
     rospy.init_node('take_photo', anonymous=False)
     camera = TakePhoto()
+    explore_server = rospy.Publisher("/explore/cancel", GoalID,queue_size=5)
+    move_base = actionlib.SimpleActionClient("move_base", MoveBaseAction)
+
+    move_base.wait_for_server()
     rospy.spin()
