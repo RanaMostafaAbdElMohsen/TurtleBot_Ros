@@ -89,7 +89,7 @@ if __name__ == '__main__':
     # Initialize
     rospy.init_node('take_photo', anonymous=False)
     camera = TakePhoto()
-	camera.detection()
+    camera.detection()
     # Take a photo
 
     # Use '_image_title' parameter from command line
