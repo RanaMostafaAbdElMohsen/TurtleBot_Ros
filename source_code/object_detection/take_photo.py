@@ -82,7 +82,7 @@ class TakePhoto:
                 if probability > 0.4:
                     idx = int(detections[0, 0, i, 1])
                     label = "{}: {:.2f}%".format(CLASSES[idx], probability * 100)
-					ros.loginfo("A "+label+" is found with a probability of "+str(probability))
+                    ros.loginfo("A "+label+" is found with a probability of "+str(probability))
 
 if __name__ == '__main__':
 
