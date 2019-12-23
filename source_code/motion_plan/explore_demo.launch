@@ -1,0 +1,5 @@
+<launch>
+<include file="$(find source_code)/motion_plan/gmapping.launch" />
+<include file="$(find source_code)/motion_plan/move_base_gmapping.launch"/>
+<include file="$(find source_code)/motion_plan/greedy_explore.launch"/>
+</launch>
