@@ -94,6 +94,7 @@ Instructions for generating map
 - Type in the shell `rosdep update`
 - Type `sudo rosdep fix-permissions`
 - Make sure the script detect_wheel.py is excutable (`chmod +x detect_cone.py`)
+-Make sure imutils is installed `sudo pip install imutils`
 #### Run commands
 - Type in command catkin_make
 - Open a new shell from navigation bar
@@ -101,7 +102,7 @@ Instructions for generating map
 - Open `camera viewer` from navigation bar in `Tools` dropdown
 - Open a new shell and Type command mentioned in camera viewer `roslaunch rosbridge_server rosbridge_websocket.launch`
 - Open another shell and Type command mentioned in camera viewer `rosrun web_video_server web_video_server _port:=11315`
-- Run exploration / move_base algorithm as mentioned above
+- Run exploration autonmous mappping as mentioned above
 - Open a new shell + Type in command `rosrun source_code detect_cone.py`, and will log if wheel is detected or not
 
 
