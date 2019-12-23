@@ -38,7 +38,7 @@ class TakePhoto:
         # Connect image topic
         img_topic = "/camera/rgb/image_raw"
         self.image_sub = rospy.Subscriber(img_topic, Image, self.callback)
-
+        self.detect_pub= rospy.Publisher('/object',String,queue_size=15)
         # Allow up to one second to connection
         rospy.sleep(1)
 
@@ -49,9 +49,12 @@ class TakePhoto:
             cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
         except CvBridgeError as e:
             print(e)
+            return
 
         self.image_received = True
         self.image = cv_image
+        self.detection()
+        self.image_received = False
 
     def take_picture(self, img_title):
         if self.image_received:
@@ -91,23 +94,29 @@ class TakePhoto:
                 x,y,w,h=cv2.boundingRect(conts[i])
                 if w*h > 3000:
                     rospy.loginfo("Wheel found")
+                    msg=String('F')
+
+                else:
+                    msg=String('T')
+                    
+                self.detect_pub.publish(msg)
 
 if __name__ == '__main__':
 
     # Initialize
     rospy.init_node('take_photo', anonymous=False)
     camera = TakePhoto()
-    camera.detection()
+
     # Take a photo
 
     # Use '_image_title' parameter from command line
     # Default value is 'photo.jpg'
-    img_title = rospy.get_param('~image_title', 'photo.jpg')
+    #img_title = rospy.get_param('~image_title', 'photo.jpg')
 
-    if camera.take_picture(img_title):
-        rospy.loginfo("Saved image " + img_title)
-    else:
-        rospy.loginfo("No images received")
+    #if camera.take_picture(img_title):
+     #   rospy.loginfo("Saved image " + img_title)
+    #else:
+     #   rospy.loginfo("No images received")
 
     # Sleep to give the last log messages time to be sent
-    rospy.sleep(1)
+    rospy.spin()
