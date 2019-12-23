@@ -22,6 +22,9 @@ from __future__ import print_function
 import sys
 import rospy
 import cv2
+import numpy as np
+import imutils
+import time
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
@@ -57,13 +60,36 @@ class TakePhoto:
             return True
         else:
             return False
+	
+    def detection(self):
+        if self.image_received:
+            CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
+"dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
+
+            COLORS = np.random.uniform(0, 255, size = (len(CLASSES), 3))
+            net = cv2.dnn.readNetFromCaffe("MobileNetSSD_deploy.prototxt.txt", "MobileNetSSD_deploy.caffemodel")
+            frame = self.image
+            (h, w) = frame.shape[:2]
+            blob = cv2.dnn.blobFromImage(cv2.resize(frame, (300, 300)), 0.007843, (300, 300), 127.5)
+
+            net.setInput(blob)
+            detections = net.forward()
+
+	# loop over the detections
+            for i in np.arange(0, detections.shape[2]):
+                probability = detections[0, 0, i, 2]
+
+                if probability > 0.4:
+                    idx = int(detections[0, 0, i, 1])
+                    label = "{}: {:.2f}%".format(CLASSES[idx], probability * 100)
+					ros.loginfo("A "+label+" is found with a probability of "+str(probability))
 
 if __name__ == '__main__':
 
     # Initialize
     rospy.init_node('take_photo', anonymous=False)
     camera = TakePhoto()
-
+	camera.detection()
     # Take a photo
 
     # Use '_image_title' parameter from command line
