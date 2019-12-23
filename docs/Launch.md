@@ -81,7 +81,8 @@ Instructions for generating map
 #### First time
 - Type in the shell `rosdep update`
 - Type `sudo rosdep fix-permissions`
-- Make sure the script detect_wheel.py is excutable (`chmod +x send_goal.py`)
+- Make sure the script detect_wheel.py is excutable (`chmod +x detect_wheel.py`)
+- Type in the shell `sudo pip install imutils`
 #### Run commands
 - Type in command catkin_make
 - Open a new shell from navigation bar
