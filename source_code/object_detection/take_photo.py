@@ -60,29 +60,37 @@ class TakePhoto:
             return True
         else:
             return False
-	
+
     def detection(self):
         if self.image_received:
-            CLASSES = ["background", "aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable",
-"dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
 
-            COLORS = np.random.uniform(0, 255, size = (len(CLASSES), 3))
-            net = cv2..dnn.readNetFromCaffe("MobileNetSSD_deploy.prototxt.txt", "MobileNetSSD_deploy.caffemodel")
-            frame = self.image
-            (h, w) = frame.shape[:2]
-            blob = cv2.dnn.blobFromImage(cv2.resize(frame, (300, 300)), 0.007843, (300, 300), 127.5)
+            lowerBound=np.array([0,0,0])
+            upperBound=np.array([40,40,40])
 
-            net.setInput(blob)
-            detections = net.forward()
+            kernelOpen=np.ones((5,5))
+            kernelClose=np.ones((20,20))
 
-	# loop over the detections
-            for i in np.arange(0, detections.shape[2]):
-                probability = detections[0, 0, i, 2]
+            # font=cv2.InitFont(cv2.cv.CV_FONT_HERSHEY_SIMPLEX,2,0.5,0,3,1)
 
-                if probability > 0.4:
-                    idx = int(detections[0, 0, i, 1])
-                    label = "{}: {:.2f}%".format(CLASSES[idx], probability * 100)
-                    ros.loginfo("A "+label+" is found with a probability of "+str(probability))
+            img = self.image
+            img=cv2.resize(img,(340,220))
+
+            #convert BGR to HSV
+            imgHSV= cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
+            # create the Mask
+            mask=cv2.inRange(imgHSV,lowerBound,upperBound)
+            #morphology
+            maskOpen=cv2.morphologyEx(mask,cv2.MORPH_OPEN,kernelOpen)
+            maskClose=cv2.morphologyEx(maskOpen,cv2.MORPH_CLOSE,kernelClose)
+
+            maskFinal=maskClose
+            conts,h=cv2.findContours(maskFinal.copy(),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
+
+            cv2.drawContours(img,conts,-1,(255,0,0),3)
+            for i in range(len(conts)):
+                x,y,w,h=cv2.boundingRect(conts[i])
+                if w*h > 3000:
+                    rospy.loginfo("Wheel found")
 
 if __name__ == '__main__':
 
