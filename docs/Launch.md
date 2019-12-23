@@ -21,7 +21,7 @@ Displaying our simulated world with all objects and ROS turtlebot on `Gazebo`
 
 ### Starting SLAM algorithm
 - Open a shell terminal:
-    - type `roslaunch source_code gmapping.launch`  
+    - type `roslaunch source_code gmapping.launch` 
 
 ### Starting Rviz
 - Open a shell terminal:
@@ -76,5 +76,18 @@ Instructions for generating map
 - Kill all open terminals except `gazebo simulation`
 - Run move base algorithm as mentioned above
 - Type in command `rosrun source_code send_goal.py x y theta` replace x y theta with you desired coordinates
+
+### Wheel Object Detection
+#### First time
+- Type in the shell `rosdep update`
+- Type `sudo rosdep fix-permissions`
+- Make sure the script detect_wheel.py is excutable (`chmod +x send_goal.py`)
+#### Run commands
+- Type in command catkin_make
+- Open a new shell from navigation bar
+- Kill all open terminals except `gazebo simulation`
+- Run move base algorithm as mentioned above
+- Type in command `rosrun source_code detect_wheel.py`, and will log if wheel is detected or not
+
 
 
