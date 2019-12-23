@@ -67,7 +67,7 @@ class TakePhoto:
 "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
 
             COLORS = np.random.uniform(0, 255, size = (len(CLASSES), 3))
-            net = cv2.dnn.readNetFromCaffe("MobileNetSSD_deploy.prototxt.txt", "MobileNetSSD_deploy.caffemodel")
+            net = self.bridge.dnn.readNetFromCaffe("MobileNetSSD_deploy.prototxt.txt", "MobileNetSSD_deploy.caffemodel")
             frame = self.image
             (h, w) = frame.shape[:2]
             blob = self.bridge.dnn.blobFromImage(cv2.resize(frame, (300, 300)), 0.007843, (300, 300), 127.5)
