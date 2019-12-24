@@ -2428,15 +2428,25 @@
       <pose frame=''>-1.6701 4.89329 0 0 -0 0</pose>
     </model>
     <state world_name='default'>
-      <sim_time>565 161000000</sim_time>
-      <real_time>568 35344357</real_time>
-      <wall_time>1576395622 86834790</wall_time>
-      <iterations>565161</iterations>
-      <model name='car_wheel'>
-        <pose frame=''>-1.6701 4.89329 -0.000593 0 9.2e-05 0</pose>
+      <sim_time>757 473000000</sim_time>
+      <real_time>34 169795122</real_time>
+      <wall_time>1577129704 938499540</wall_time>
+      <iterations>34078</iterations>
+      <model name='Construction Barrel'>
+        <pose frame=''>3.71239 3.56553 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>-1.67008 4.89329 0.216227 0 1.57079 0</pose>
+          <pose frame=''>3.71239 3.56553 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='car_wheel'>
+        <pose frame=''>-1.6701 4.89329 -0.005001 0 9.6e-05 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>-1.67008 4.89329 0.211819 -3e-06 1.57079 -3e-06</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -2618,10 +2628,60 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>13.2641 -3.96071 13.1716 0 0.683644 -3.139</pose>
+        <pose frame=''>0.672083 -3.41142 8.27449 0 0.891644 1.53619</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
     </gui>
+    <model name='Construction Barrel'>
+      <static>1</static>
+      <link name='link'>
+        <inertial>
+          <pose frame=''>0 0 0.4 0 -0 0</pose>
+          <mass>500</mass>
+          <inertia>
+            <ixx>51.2096</ixx>
+            <iyy>51.2096</iyy>
+            <izz>25</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://construction_barrel/meshes/construction_barrel.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://construction_barrel/meshes/construction_barrel.dae</uri>
+              <scale>1 1 1</scale>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+      </link>
+      <pose frame=''>-2.74482 2.92933 0 0 -0 0</pose>
+    </model>
   </world>
 </sdf>

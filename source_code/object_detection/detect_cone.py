@@ -28,6 +28,9 @@ import time
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
+import actionlib
+from move_base_msgs.msg import MoveBaseGoal, MoveBaseAction
+from actionlib_msgs.msg import GoalID
 
 class TakePhoto:
     def __init__(self):
@@ -38,7 +41,6 @@ class TakePhoto:
         # Connect image topic
         img_topic = "/camera/rgb/image_raw"
         self.image_sub = rospy.Subscriber(img_topic, Image, self.callback)
-        self.detect_pub= rospy.Publisher('/object',String,queue_size=15)
         # Allow up to one second to connection
         rospy.sleep(1)
 
@@ -55,6 +57,13 @@ class TakePhoto:
         self.image = cv_image
         self.detection()
         self.image_received = False
+    def cancel_exploration(self):
+        goal=GoalID(stamp=rospy.Time.from_sec(0.0), id="")
+        explore_server.publish(goal)
+
+
+    def cancel_move_base(self):
+        move_base.cancel_all_goals()
 
     def take_picture(self, img_title):
         if self.image_received:
@@ -67,8 +76,8 @@ class TakePhoto:
     def detection(self):
         if self.image_received:
 
-            lowerBound=np.array([0,0,0])
-            upperBound=np.array([40,40,40])
+            lowerBound=np.array([0,100,100])
+            upperBound=np.array([15,255,255])
 
             kernelOpen=np.ones((5,5))
             kernelClose=np.ones((20,20))
@@ -90,33 +99,22 @@ class TakePhoto:
             conts,h=cv2.findContours(maskFinal.copy(),cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
 
             cv2.drawContours(img,conts,-1,(255,0,0),3)
+
             for i in range(len(conts)):
                 x,y,w,h=cv2.boundingRect(conts[i])
-                if w*h > 3000:
-                    rospy.loginfo("Wheel found")
-                    msg=String('F')
+                rospy.loginfo("Cone found")
+                self.cancel_exploration()
+                self.cancel_move_base()
+                #rospy.signal_shutdown("done")
 
-                else:
-                    msg=String('T')
-                    
-                self.detect_pub.publish(msg)
 
 if __name__ == '__main__':
 
     # Initialize
     rospy.init_node('take_photo', anonymous=False)
     camera = TakePhoto()
+    explore_server = rospy.Publisher("/explore/cancel", GoalID,queue_size=5)
+    move_base = actionlib.SimpleActionClient("move_base", MoveBaseAction)
 
-    # Take a photo
-
-    # Use '_image_title' parameter from command line
-    # Default value is 'photo.jpg'
-    #img_title = rospy.get_param('~image_title', 'photo.jpg')
-
-    #if camera.take_picture(img_title):
-     #   rospy.loginfo("Saved image " + img_title)
-    #else:
-     #   rospy.loginfo("No images received")
-
-    # Sleep to give the last log messages time to be sent
+    move_base.wait_for_server()
     rospy.spin()
