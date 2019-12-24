@@ -27,6 +27,7 @@ import imutils
 import time
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
+from sensor_msgs.msg import LaserScan
 from cv_bridge import CvBridge, CvBridgeError
 import actionlib
 from move_base_msgs.msg import MoveBaseGoal, MoveBaseAction
@@ -49,7 +50,8 @@ class TakePhoto:
         # Connect image topic
         img_topic = "/camera/rgb/image_raw"
         self.image_sub = rospy.Subscriber(img_topic, Image, self.callback)
-        self.img_dist = rospy.Subscriber('/camera/depth/image_raw',Image,self.get_distance)
+        self.dist = rospy.Subscriber("/kobuki/laser/scan", LaserScan, self.compute_dist)
+        # self.img_dist = rospy.Subscriber('/camera/depth/image_raw',Image,self.get_distance)
         # Allow up to one second to connection
         rospy.sleep(1)
 
@@ -66,6 +68,10 @@ class TakePhoto:
         self.image = cv_image
         self.detection()
         self.image_received = False
+
+    def compute_dist(self,msg):
+        if self.flag==True:
+            print(msg.ranges[360])
 
     def get_distance(self,img):
         bridge=CvBridge()
