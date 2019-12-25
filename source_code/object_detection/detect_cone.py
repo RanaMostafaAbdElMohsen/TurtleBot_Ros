@@ -27,20 +27,31 @@ import imutils
 import time
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
+from sensor_msgs.msg import LaserScan
 from cv_bridge import CvBridge, CvBridgeError
 import actionlib
 from move_base_msgs.msg import MoveBaseGoal, MoveBaseAction
 from actionlib_msgs.msg import GoalID
+
+# def get_distance(img):
+#     bridge=CvBridge()
+#     cv_image = bridge.imgmsg_to_cv2(img, "32FC1")
+#     if flag==True:
+#         print(cv_image[246][88])
 
 class TakePhoto:
     def __init__(self):
 
         self.bridge = CvBridge()
         self.image_received = False
-
+        self.flag=False
+        self.center_x=0
+        self.center_y=0
         # Connect image topic
         img_topic = "/camera/rgb/image_raw"
         self.image_sub = rospy.Subscriber(img_topic, Image, self.callback)
+        self.dist = rospy.Subscriber("/kobuki/laser/scan", LaserScan, self.compute_dist)
+        # self.img_dist = rospy.Subscriber('/camera/depth/image_raw',Image,self.get_distance)
         # Allow up to one second to connection
         rospy.sleep(1)
 
@@ -57,6 +68,18 @@ class TakePhoto:
         self.image = cv_image
         self.detection()
         self.image_received = False
+
+    def compute_dist(self,msg):
+        if self.flag==True:
+            print(msg.ranges[360])
+
+    def get_distance(self,img):
+        bridge=CvBridge()
+        cv_image = bridge.imgmsg_to_cv2(img, "32FC1")
+        print(cv_image)
+        if self.flag==True:
+            print(cv_image[self.center_x][self.center_y])
+
     def cancel_exploration(self):
         goal=GoalID(stamp=rospy.Time.from_sec(0.0), id="")
         explore_server.publish(goal)
@@ -102,6 +125,8 @@ class TakePhoto:
 
             for i in range(len(conts)):
                 x,y,w,h=cv2.boundingRect(conts[i])
+                self.center_x,self.center_y= x, y
+                self.flag=True
                 rospy.loginfo("Cone found")
                 self.cancel_exploration()
                 self.cancel_move_base()
@@ -111,6 +136,7 @@ class TakePhoto:
 if __name__ == '__main__':
 
     # Initialize
+
     rospy.init_node('take_photo', anonymous=False)
     camera = TakePhoto()
     explore_server = rospy.Publisher("/explore/cancel", GoalID,queue_size=5)
